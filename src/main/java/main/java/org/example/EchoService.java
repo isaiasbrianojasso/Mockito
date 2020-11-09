@@ -6,26 +6,26 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class EchoService {
-    
-    public boolean echo(String ip, int port, String request){
-        try{
-            Socket socket = new Socket(ip,port);
+
+    public boolean echo(String ip, int port, String request) {
+        try {
+            Socket socket = new Socket(ip, port);
 
             OutputStream os = socket.getOutputStream();
             InputStream is = socket.getInputStream();
 
             return sendEchoMessage(request, os, is);
- 
-        } catch (IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;        
+        return false;
     }
 
     public boolean sendEchoMessage(String request, OutputStream os, InputStream is) throws IOException {
         os.write(request.getBytes());
         String response = new String(is.readAllBytes());
-        
+
         return response.equals(request);
     }
 
